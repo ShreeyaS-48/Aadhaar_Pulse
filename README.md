@@ -13,7 +13,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
-- [Key Capabilities](#key-capabilities))
+- [Key Capabilities](#key-capabilities)
 - [Technical Implementation](#technical-implementation)
 - [Insights & Findings](#insights--findings)
 - [Impact & Applicability](#impact--applicability)
@@ -83,8 +83,8 @@ Identify meaningful patterns, trends, anomalies, or predictive indicators and tr
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd AadharProject
+   git clone [text](https://github.com/shreeyas-48/aadhaar_pulse/blob/main/Aadhaar_Pulse.py)
+   cd Aadhaar_Pulse
    ```
 
 2. **Install dependencies**
