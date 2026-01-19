@@ -13,8 +13,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
-- [Key Capabilities](#key-capabilities)
-- [Evaluation Criteria Coverage](#evaluation-criteria-coverage)
+- [Key Capabilities](#key-capabilities))
 - [Technical Implementation](#technical-implementation)
 - [Insights & Findings](#insights--findings)
 - [Impact & Applicability](#impact--applicability)
@@ -231,46 +230,6 @@ AadharProject/
 
 ---
 
-## Evaluation Criteria Coverage
-
-### Data Analysis and Insights
-
-- **Univariate Analysis:** Comprehensive statistical summaries, distribution analysis
-- **Bivariate Analysis:** Correlation analysis with multiple methods, significance testing
-- **Trivariate Analysis:** Partial correlations, multi-variable relationships
-- **Meaningful Findings:** Geographic patterns, temporal trends, demographic shifts
-
-### Creativity and Originality
-
-- **Unique Problem Statement:** Focus on societal trends and policy impact
-- **Innovative Use of Datasets:** Combined enrolment and update data
-- **Novel Insights:** Digital inclusion indicators, policy impact assessment
-- **Creative Visualizations:** Interactive Plotly charts, 3D scatter plots, Lorenz curves
-
-### Technical Implementation
-
-- **Code Quality:** Well-structured, modular code with proper separation of concerns
-- **Reproducibility:** Complete requirements.txt, clear documentation
-- **Rigorous Approach:** Multiple statistical methods, proper validation
-- **Appropriate Methods:** Industry-standard algorithms (Isolation Forest, ARIMA, etc.)
-- **Documentation:** Comprehensive README, inline comments, docstrings
-
-### Visualization and Presentation
-
-- **Clarity:** Clean, intuitive interface with clear labels and legends
-- **Effectiveness:** Interactive Plotly visualizations, multiple chart types
-- **Quality:** Professional styling, consistent color schemes
-- **Written Report:** Comprehensive README with detailed explanations
-
-### Impact and Applicability
-
-- **Social Benefit:** Insights for policy makers, administrators, researchers
-- **Administrative Benefit:** Risk assessment, resource allocation guidance
-- **Practicality:** Actionable insights with clear recommendations
-- **Feasibility:** Real-world applicable findings and solutions
-
----
-
 ## Technical Implementation
 
 ### Technology Stack
@@ -279,8 +238,8 @@ AadharProject/
 - **Data Processing:** Pandas, NumPy
 - **Visualization:** Plotly, Matplotlib, Seaborn
 - **Machine Learning:** Scikit-learn (Isolation Forest, Linear Regression)
-- **Statistical Analysis:** SciPy, Statsmodels
-- **Data Storage:** CSV files, Excel files
+- **Statistical Analysis:** SciPy
+- **Data Storage:** CSV files
 
 ### Key Algorithms
 
@@ -288,7 +247,7 @@ AadharProject/
 2. **Linear Regression:** Time series forecasting
 3. **Moving Average:** Simple forecasting method
 4. **Exponential Smoothing:** Trend-based forecasting
-5. **Statistical Tests:** Pearson, Spearman, Kendall correlations
+
 
 ### Code Quality Features
 
@@ -296,7 +255,6 @@ AadharProject/
 - Comprehensive error handling
 - Data validation and preprocessing
 - Caching for performance optimization
-- Type hints and docstrings
 
 ---
 
@@ -314,19 +272,17 @@ AadharProject/
 - **State Comparison:** State-to-national benchmarking and relative performance
 - **District Analysis:** Granular geographic insights at district level
 - **Regional Patterns:** Geographic concentration and distribution inequality
-- **Performance Tiers:** Top and bottom performing states and districts identified
+- **Performance Tiers:** Top performing states and districts identified
 
 ### Temporal Dynamics
 
 - **Growth Rates:** Month-on-month growth tracking with alerts for positive/negative trends
 - **Seasonality:** Identification of peak activity periods
 - **Trend Direction:** Growth trajectory analysis and slowdown detection
-- **Historical Comparison:** Baseline performance standards for evaluation
 
 ### Risk Identification
 
 - **Anomaly Detection:** Machine learning-based outlier identification
-- **Risk Patterns:** Automatic detection of unusual patterns and deviations
 - **Multi-level Assessment:** Risk scoring at state, district, and temporal levels
 - **Early Warnings:** Alert system for negative trends and anomalies
 
@@ -381,7 +337,6 @@ AadharProject/
 - **UIDAI Aadhaar Enrolment Dataset:** Enrolment records by date, state, district
 - **UIDAI Demographic Update Dataset:** Demographic update transactions
 - **UIDAI Biometric Update Dataset:** Biometric update transactions
-- **Primary Census Abstract (PCA):** Population data by state
 
 ---
 
@@ -404,19 +359,9 @@ This project is developed for hackathon purposes.
 ## Acknowledgments
 
 - UIDAI for providing the Aadhaar datasets
-- Census of India for population data
 - Open-source community for excellent Python libraries
 
 ---
 
-## Contact
-
-For questions, suggestions, or feedback, please refer to the project repository.
-
----
-
-**Built for hackathon excellence**
-
-*Last Updated: 2024*
 
 
