@@ -1,11 +1,16 @@
+import os
 import pandas as pd
 import streamlit as st
 
 @st.cache_data(show_spinner="Loading Aadhaar dataset...")
 def load_aadhaar_data():
-    df1 = pd.read_csv("data\\api_data_aadhar_enrolment_0_500000.csv")
-    df2 = pd.read_csv("data\\api_data_aadhar_enrolment_500000_1000000.csv")
-    df3 = pd.read_csv("data\\api_data_aadhar_enrolment_1000000_1006029.csv")
+    # Get the base directory of the project
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_dir = os.path.join(base_dir, "data")
+    
+    df1 = pd.read_csv(os.path.join(data_dir, "api_data_aadhar_enrolment_0_500000.csv"))
+    df2 = pd.read_csv(os.path.join(data_dir, "api_data_aadhar_enrolment_500000_1000000.csv"))
+    df3 = pd.read_csv(os.path.join(data_dir, "api_data_aadhar_enrolment_1000000_1006029.csv"))
     df = pd.concat([df1, df2, df3])
 
     df['date'] = pd.to_datetime(df['date'], format = "%d-%m-%Y")
@@ -280,11 +285,11 @@ def load_aadhaar_data():
     ] = 'Namchi'
     df['district'] = df['district'].replace(district_map)
 
-    df_demo1 = pd.read_csv("data\\api_data_aadhar_demographic_0_500000.csv")
-    df_demo2 = pd.read_csv("data\\api_data_aadhar_demographic_500000_1000000.csv")
-    df_demo3 = pd.read_csv("data\\api_data_aadhar_demographic_1000000_1500000.csv")
-    df_demo4 = pd.read_csv("data\\api_data_aadhar_demographic_1500000_2000000.csv")
-    df_demo5 = pd.read_csv("data\\api_data_aadhar_demographic_2000000_2071700.csv")
+    df_demo1 = pd.read_csv(os.path.join(data_dir, "api_data_aadhar_demographic_0_500000.csv"))
+    df_demo2 = pd.read_csv(os.path.join(data_dir, "api_data_aadhar_demographic_500000_1000000.csv"))
+    df_demo3 = pd.read_csv(os.path.join(data_dir, "api_data_aadhar_demographic_1000000_1500000.csv"))
+    df_demo4 = pd.read_csv(os.path.join(data_dir, "api_data_aadhar_demographic_1500000_2000000.csv"))
+    df_demo5 = pd.read_csv(os.path.join(data_dir, "api_data_aadhar_demographic_2000000_2071700.csv"))
     df_demo = pd.concat([df_demo1, df_demo2, df_demo3, df_demo4, df_demo5])
     
     df_demo['state'] = (
@@ -340,10 +345,10 @@ def load_aadhaar_data():
     ] = 'Namchi'
     df_demo['district'] = df_demo['district'].replace(district_map)
 
-    df_bio1 = pd.read_csv("data\\api_data_aadhar_biometric_0_500000.csv")
-    df_bio2 = pd.read_csv("data\\api_data_aadhar_biometric_500000_1000000.csv")
-    df_bio3 = pd.read_csv("data\\api_data_aadhar_biometric_1000000_1500000.csv")
-    df_bio4 = pd.read_csv("data\\api_data_aadhar_biometric_1500000_1861108.csv")
+    df_bio1 = pd.read_csv(os.path.join(data_dir, "api_data_aadhar_biometric_0_500000.csv"))
+    df_bio2 = pd.read_csv(os.path.join(data_dir, "api_data_aadhar_biometric_500000_1000000.csv"))
+    df_bio3 = pd.read_csv(os.path.join(data_dir, "api_data_aadhar_biometric_1000000_1500000.csv"))
+    df_bio4 = pd.read_csv(os.path.join(data_dir, "api_data_aadhar_biometric_1500000_1861108.csv"))
 
     df_bio = pd.concat([df_bio1, df_bio2, df_bio3, df_bio4])
 

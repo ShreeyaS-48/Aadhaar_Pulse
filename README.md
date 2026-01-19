@@ -1,8 +1,8 @@
-# Aadhaar Enrolment & Update Intelligence System
+# Aadhaar Pulse
 
-**Unlocking societal trends through advanced data analytics**
+**Data-Driven Insights for Enrolment, Updates & Planning**
 
-A comprehensive analytics platform that provides deep insights into Aadhaar enrolment and update patterns across India, enabling data-driven decision-making through advanced statistical analysis, predictive modeling, and anomaly detection.
+**Aadhaar Pulse** is a platform that transforms raw Aadhaar data into actionable insights. Leveraging advanced analytics, predictive modeling, and anomaly detection we empower policymakers and administrators to make data-driven decisions with confidence.
 
 ---
 
@@ -24,47 +24,52 @@ A comprehensive analytics platform that provides deep insights into Aadhaar enro
 
 ## Problem Statement
 
-**Unlocking Societal Trends in Aadhaar Enrolment and Updates**
-
 Identify meaningful patterns, trends, anomalies, or predictive indicators and translate them into clear insights or solution frameworks that can support informed decision-making and system improvements.
 
 ---
 
 ## Features
 
-### 1. **Comprehensive Dashboards**
-- National, state, and district-level drilldowns
-- Enrolment, demographic update, and biometric update analytics
-- Interactive visualizations with Plotly
-- Real-time metrics and KPIs
+### 1. **Unified Overview Dashboard**
+- National snapshots across enrolment, demographic updates, and biometric updates
+- Key performance metrics and KPIs on three tabs
+- Geographic distribution analysis by state and district
+- Age group distribution breakdowns
+- Month-on-month growth tracking
 
-### 2. **Advanced Analytics**
+### 2. **State-Level Analysis**
+- State-to-national comparison metrics
+- State-specific trend analysis
+- Enrolment, demographic, and biometric update tracking
+- Performance benchmarking against national averages
+- Age group distribution at state level
+
+### 3. **District-Level Drilldown**
+- District-to-state comparison analysis
+- Performance metrics at granular level
+- All three data categories (enrolment, demographic, biometric)
+- Age group distribution by district
+- Geographic concentration analysis
+
+### 4. **Predictive Analytics**
+- Time series forecasting at multiple levels (National, State, District)
+- Ensemble forecasting methods
+- Scenario analysis (optimistic, baseline, pessimistic)
+- Confidence intervals for forecasts
+- Model evaluation metrics (MAE, RMSE, MAPE)
+
+### 5. **Anomaly Detection**
+- Isolation Forest-based machine learning detection
+- Multi-level analysis (State, District, Temporal)
+- Configurable contamination rates
+- Automatic risk pattern identification
+- Real-time outlier detection
+
+### 6. **Comprehensive Statistical Analysis**
 - **Univariate Analysis:** Distribution analysis, central tendencies, variability measures
 - **Bivariate Analysis:** Correlation analysis (Pearson, Spearman, Kendall)
 - **Trivariate Analysis:** Partial correlations and multi-variable relationships
-- **Distribution Analysis:** Gini coefficient, concentration ratios, Lorenz curves
-
-### 3. **Predictive Analytics**
-- Time series forecasting using multiple methods:
-  - Linear Regression
-  - Moving Average
-  - Exponential Smoothing
-  - Ensemble Forecasting (Recommended)
-- Model evaluation with MAE, RMSE, MAPE metrics
-- Confidence intervals for forecasts
-
-### 4. **Anomaly Detection**
-- **Isolation Forest:** Machine learning-based anomaly detection
-- **Statistical Methods:** IQR and Z-Score based outlier detection
-- **Comparative Analysis:** Risk assessment against benchmarks
-- Automated risk scoring and alerting
-
-### 5. **Societal Trends Analysis**
-- Geographic distribution patterns
-- Temporal trend analysis with seasonality detection
-- Demographic shift identification
-- Digital inclusion indicators
-- Policy impact assessment
+- **Distribution Metrics:** Gini coefficient, concentration ratios, inequality measures
 
 ---
 
@@ -92,11 +97,10 @@ Identify meaningful patterns, trends, anomalies, or predictive indicators and tr
    - `api_data_aadhar_enrolment_*.csv`
    - `api_data_aadhar_demographic_*.csv`
    - `api_data_aadhar_biometric_*.csv`
-   - `PopulationData.xlsx`
 
 4. **Run the application**
    ```bash
-   streamlit run app.py
+   streamlit run Aadhaar_Pulse.py
    ```
 
 5. **Access the application**
@@ -110,27 +114,22 @@ Identify meaningful patterns, trends, anomalies, or predictive indicators and tr
 
 Use the sidebar to navigate through different analysis modules:
 
-**Core Dashboards:**
-- **Enrolment Overview** - National enrolment statistics and trends
-- **Enrolment State Drilldown** - State-level enrolment analysis
-- **Enrolment District Drilldown** - District-level detailed analysis
-- **Demographic Update Overview** - National demographic update patterns
-- **Biometric Update Overview** - National biometric update patterns
-
-**Advanced Analytics:**
-- **Advanced Analytics** - Statistical analysis (univariate/bivariate/trivariate)
-- **Anomaly Detection** - Outlier and risk pattern identification
-- **Predictive Analytics** - Forecasting and predictive modeling
-- **Societal Trends** - Pattern recognition and trend analysis
+**Main Pages:**
+- **Overview** - National snapshot of enrolment, demographic updates, and biometric patterns with key metrics
+- **State Drilldown** - State-level metrics, comparative performance, and state vs national benchmark analysis
+- **District Drilldown** - District-level insights, district vs state comparisons, and performance metrics
+- **Anomaly Detection** - Identify outliers and anomalies using machine learning techniques
+- **Predictive Analytics** - Time-series forecasting with scenario planning and confidence intervals
+- **Comprehensive Analysis** - Complete statistical analysis including univariate, bivariate, and trivariate analysis
 
 ### Getting Started Workflow
 
-1. Start with **Enrolment Overview** to understand national patterns
-2. Use **State Drilldown** to explore specific states
-3. Apply **Advanced Analytics** for deeper statistical insights
-4. Check **Anomaly Detection** for risk assessment
-5. Use **Predictive Analytics** for forecasting
-6. Explore **Societal Trends** for policy-relevant insights
+1. Start with **Overview** to understand national patterns across all three data categories
+2. Use **State Drilldown** to explore state-level performance and comparisons
+3. Apply **District Drilldown** for granular geographic insights
+4. Check **Anomaly Detection** for risk assessment and pattern identification
+5. Use **Predictive Analytics** for forecasting future trends
+6. Explore **Comprehensive Analysis** for deep statistical insights
 
 ---
 
@@ -139,96 +138,96 @@ Use the sidebar to navigate through different analysis modules:
 ```
 AadharProject/
 │
-├── app.py                          # Main Streamlit application
+├── Aadhaar_Pulse.py                # Main Streamlit landing page
 ├── requirements.txt                # Python dependencies
 ├── README.md                       # This file
 │
 ├── data/                           # Data directory
 │   ├── api_data_aadhar_enrolment_*.csv
 │   ├── api_data_aadhar_demographic_*.csv
-│   ├── api_data_aadhar_biometric_*.csv
-│   └── PopulationData.xlsx
+│   └── api_data_aadhar_biometric_*.csv
 │
 ├── pages/                          # Streamlit pages
-│   ├── 1_Enrolment_Overview.py
-│   ├── 2_Enrolment_State_Drilldown.py
-│   ├── 3_Enrolment_District_Drilldown.py
-│   ├── 4_Demographic_Update_Overview.py
-│   ├── 5_Demographic_Update_State_Drilldown.py
-│   ├── 6_Demographic_Update_District_Drilldown.py
-│   ├── 7_Biometric_Update_Overview.py
-│   ├── 8_Biometric_Update_State_Drilldown.py
-│   ├── 9_Biometric_Update_District_Drilldown.py
-│   ├── 10_Advanced_Analytics.py      # NEW: Advanced statistical analysis
-│   ├── 11_Anomaly_Detection.py       # NEW: Anomaly detection and risk assessment
-│   ├── 12_Predictive_Analytics.py   # NEW: Forecasting and predictive modeling
-│   └── 13_Societal_Trends.py         # NEW: Societal trends and patterns
+│   ├── 1_Overview.py              # National overview and snapshots
+│   ├── 2_State_Drilldown.py       # State-level analysis
+│   ├── 3_District_Drilldown.py    # District-level analysis
+│   ├── 5_Anomaly_Detection.py     # Anomaly detection and risk assessment
+│   ├── 6_Predictive_Analytics.py  # Forecasting and predictive modeling
+│   └── 9_Comprehensive_Analysis.py # Statistical analysis
 │
 └── utils/                          # Utility modules
     ├── data_loader.py              # Data loading and preprocessing
-    ├── analytics.py                # NEW: Advanced analytics functions
-    └── forecasting.py              # NEW: Forecasting utilities
+    ├── analytics.py                # Advanced analytics functions
+    └── forecasting.py              # Forecasting utilities
 ```
 
 ---
 
 ## Key Capabilities
 
-### Statistical Analysis
+### Dashboard Capabilities
 
-- **Univariate Analysis:**
+- **Three Data Categories:** Integrated tracking of enrolment, demographic updates, and biometric updates
+- **Multiple Geographic Levels:** National, state, and district-level analysis
+- **Interactive Metrics:** Real-time KPIs with color-coded indicators
+- **Trend Visualization:** Line charts showing temporal patterns
+- **Geographic Distribution:** State and district ranking with top/bottom performers
+- **Age Group Analysis:** Breakdown by age categories (0-5, 5-17, 18+)
+
+### Analytical Capabilities
+
+- **Statistical Analysis:**
   - Mean, median, mode, standard deviation
   - Quartiles, IQR, skewness, kurtosis
   - Coefficient of variation
   - Distribution visualization (histograms, box plots, Q-Q plots)
 
-- **Bivariate Analysis:**
+- **Correlation Analysis:**
   - Pearson, Spearman, and Kendall correlations
   - P-value significance testing
   - Scatter plots with trend lines
   - Correlation heatmaps
 
-- **Trivariate Analysis:**
+- **Multi-Variable Analysis:**
   - Partial correlation analysis
   - Multi-variable relationship identification
-  - 3D scatter visualizations
+  - Distribution inequality measures
 
-### Predictive Modeling
+### Predictive Capabilities
 
-- **Time Series Forecasting:**
-  - Multiple forecasting methods (Linear, MA, Exponential Smoothing, Ensemble)
-  - Model evaluation metrics (MAE, RMSE, MAPE)
+- **Multiple Forecasting Methods:**
+  - Linear Regression
+  - Moving Average
+  - Exponential Smoothing
+  - Ensemble Forecasting
+
+- **Scenario Planning:**
+  - Optimistic scenario modeling
+  - Baseline forecast
+  - Pessimistic scenario modeling
+
+- **Model Evaluation:**
+  - MAE (Mean Absolute Error)
+  - RMSE (Root Mean Square Error)
+  - MAPE (Mean Absolute Percentage Error)
   - Confidence intervals
-  - Forecast visualization
 
-- **Model Selection:**
-  - Automatic ensemble forecasting
-  - Model comparison
-  - Accuracy assessment
-
-### Anomaly Detection
+### Anomaly Detection Capabilities
 
 - **Machine Learning:**
   - Isolation Forest algorithm
-  - Configurable contamination rates
+  - Configurable contamination rates (5%-30%)
   - Multi-dimensional anomaly detection
 
-- **Statistical Methods:**
-  - IQR-based outlier detection
-  - Z-Score based anomaly identification
-  - Threshold-based risk assessment
+- **Detection Levels:**
+  - State-level anomalies
+  - District-level anomalies
+  - Temporal (daily) patterns
 
-### Trend Analysis
-
-- **Temporal Patterns:**
-  - Long-term trend identification
-  - Seasonality detection
-  - Growth rate analysis
-
-- **Geographic Patterns:**
-  - State-wise distribution analysis
-  - Inequality measures (Gini coefficient)
-  - Concentration ratios
+- **Risk Assessment:**
+  - Automatic outlier identification
+  - Risk scoring
+  - Pattern visualization
 
 ---
 
@@ -303,29 +302,33 @@ AadharProject/
 
 ## Insights and Findings
 
-### Geographic Patterns
+### National Patterns
 
-- **Inequality Analysis:** Gini coefficient reveals distribution inequality across states
-- **Urban-Rural Patterns:** District-level analysis shows enrolment density variations
-- **State Performance:** Top and bottom performers identified with actionable insights
+- **Enrolment Trends:** Growth tracking from national snapshot with month-on-month metrics
+- **Demographic Updates:** Patterns in citizen information updates across age groups
+- **Biometric Updates:** Trends in biometric capture and update activities
+- **Age Distribution:** Coverage analysis across 0-5, 5-17, and 18+ age groups
 
-### Temporal Trends
+### Geographic Insights
 
-- **Seasonality:** Monthly patterns reveal peak enrolment periods
-- **Growth Trajectories:** Long-term trends show enrolment evolution
-- **Policy Impact:** Growth rate analysis indicates policy effectiveness
+- **State Comparison:** State-to-national benchmarking and relative performance
+- **District Analysis:** Granular geographic insights at district level
+- **Regional Patterns:** Geographic concentration and distribution inequality
+- **Performance Tiers:** Top and bottom performing states and districts identified
 
-### Demographic Shifts
+### Temporal Dynamics
 
-- **Age Group Distribution:** Changes in enrolment patterns across age groups
-- **Child Enrolment:** State-wise child enrolment percentages reveal outreach effectiveness
-- **Update Patterns:** Demographic and biometric update ratios indicate digital engagement
+- **Growth Rates:** Month-on-month growth tracking with alerts for positive/negative trends
+- **Seasonality:** Identification of peak activity periods
+- **Trend Direction:** Growth trajectory analysis and slowdown detection
+- **Historical Comparison:** Baseline performance standards for evaluation
 
-### Digital Inclusion
+### Risk Identification
 
-- **Update Activity:** Higher update ratios indicate active digital engagement
-- **Service Utilization:** Update-to-enrolment ratios reveal service awareness
-- **Geographic Disparities:** Regional variations in digital inclusion
+- **Anomaly Detection:** Machine learning-based outlier identification
+- **Risk Patterns:** Automatic detection of unusual patterns and deviations
+- **Multi-level Assessment:** Risk scoring at state, district, and temporal levels
+- **Early Warnings:** Alert system for negative trends and anomalies
 
 ---
 
@@ -360,14 +363,16 @@ AadharProject/
 
 ## Future Enhancements
 
-1. **Real-time Data Integration:** Connect to live data sources
-2. **Advanced ML Models:** LSTM, Prophet for better forecasting
-3. **Geographic Mapping:** Interactive maps with choropleth visualizations
-4. **Automated Reporting:** PDF report generation
+1. **Real-time Data Integration:** Connect to live UIDAI data sources for real-time analytics
+2. **Advanced ML Models:** LSTM, Prophet, and other deep learning models for improved forecasting
+3. **Interactive Geographic Maps:** Choropleth visualizations and geo-spatial analysis
+4. **Automated Reporting:** PDF and Excel report generation with insights
 5. **User Authentication:** Multi-user access with role-based permissions
-6. **API Integration:** RESTful API for programmatic access
-7. **Database Integration:** Move from CSV to database storage
-8. **Dashboard Customization:** User-configurable dashboards
+6. **Custom Dashboards:** User-configurable dashboard layouts
+7. **API Integration:** RESTful API for programmatic access
+8. **Database Migration:** Move from CSV to PostgreSQL/MongoDB for better scalability
+9. **Mobile Responsiveness:** Enhanced mobile interface for administrators
+10. **Export Capabilities:** Direct export of analysis and forecasts
 
 ---
 
