@@ -83,7 +83,7 @@ Identify meaningful patterns, trends, anomalies, or predictive indicators and tr
 
 1. **Clone the repository**
    ```bash
-   git clone [text](https://github.com/shreeyas-48/aadhaar_pulse/blob/main/Aadhaar_Pulse.py)
+   git clone [inline link](https://github.com/shreeyas-48/aadhaar_pulse/blob/main/Aadhaar_Pulse.py)
    cd Aadhaar_Pulse
    ```
 
