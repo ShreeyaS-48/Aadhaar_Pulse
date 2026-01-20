@@ -5,7 +5,6 @@ from utils.data_loader import load_aadhaar_data
 
 st.set_page_config(page_title="Overview", layout="wide", initial_sidebar_state="expanded")
 
-
 def alt_dark_chart(chart: alt.Chart) -> alt.Chart:
     return (
         chart
@@ -76,14 +75,11 @@ def render_enrolment_tab(df):
     max_state['state'],
     f"{max_state['total_enrolments']:,}"
     )
-
     col2.metric(
     "State with Minimum Enrolments",
     min_state['state'],
     f"{min_state['total_enrolments']:,}"
     )
-
-
     state_chart = (
         alt.Chart(state_enrolments.head(10))
         .mark_bar(color='#1f4ed8')

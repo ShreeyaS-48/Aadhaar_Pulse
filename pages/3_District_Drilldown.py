@@ -5,7 +5,6 @@ from utils.data_loader import load_aadhaar_data
 
 st.set_page_config(page_title="District Drilldown", layout="wide", initial_sidebar_state="expanded")
 
-
 def alt_dark_chart(chart: alt.Chart) -> alt.Chart:
     return (
         chart
@@ -17,6 +16,7 @@ def alt_dark_chart(chart: alt.Chart) -> alt.Chart:
 
 
 def enrolment_district_tab(df, state, district):
+    st.header(f"{district} — Enrolment Drilldown")
     filtered = df[(df['state'] == state) & (df['district'] == district)]
     state_df = df[df['state'] == state]
 
@@ -99,7 +99,6 @@ def enrolment_district_tab(df, state, district):
         .reset_index()
         .sort_values('total_enrolments', ascending=False)
     )
-
     pincodes['pincode'] = pincodes['pincode'].astype(str)
     chart = (
         alt.Chart(pincodes.head(10))
@@ -164,7 +163,6 @@ def enrolment_district_tab(df, state, district):
     ],
         ordered=True
     )
-
     dow_chart = (
     alt.Chart(dow)
     .mark_bar()
@@ -180,10 +178,7 @@ def enrolment_district_tab(df, state, district):
         )
         .properties(height=320, title="Enrolments by Day of Week and Age Group")
     )
-
     st.altair_chart(alt_dark_chart(dow_chart), use_container_width=True)
-
-
     peak_day = age_long.groupby('day_of_week')['enrolments'].sum().idxmax()
     st.info(
     f"Highest enrolment activity observed on "
@@ -197,7 +192,7 @@ def enrolment_district_tab(df, state, district):
     
 
 def demographic_district_tab(df_demo, state, district):
-    st.header('Demographic Updates — District Drilldown')
+    st.header(f"{district} — Demographic Update Drilldown")
     filtered = df_demo[(df_demo['state'] == state) & (df_demo['district'] == district)]
     state_demo = df_demo[df_demo['state'] == state]
 
@@ -360,7 +355,7 @@ def demographic_district_tab(df_demo, state, district):
 
 
 def biometric_district_tab(df_bio, state, district):
-    st.header('Biometric Updates — District Drilldown')
+    st.header(f"{district} — Biometric Update Drilldown")
     filtered = df_bio[(df_bio['state'] == state) & (df_bio['district'] == district)]
     total_updates = int(filtered[['bio_age_5_17', 'bio_age_17_']].sum().sum())
     state_bio = df_bio[df_bio['state'] == state]

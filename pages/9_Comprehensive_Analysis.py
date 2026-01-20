@@ -1,22 +1,13 @@
-"""
-Comprehensive Analysis Page
-Complete analysis combining trends, advanced statistics, and distribution insights
-for Aadhaar enrolments, demographic updates, and biometric updates
-"""
-
 import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy import stats as scipy_stats
 from utils.data_loader import load_aadhaar_data
 from utils.analytics import (
-    univariate_analysis, bivariate_correlation, trivariate_analysis,
-    calculate_gini_coefficient, calculate_concentration_ratio
+    univariate_analysis, bivariate_correlation,
 )
 
 # Page Config
@@ -43,16 +34,11 @@ df_bio['weekday'] = df_bio['date'].dt.day_name()
 
 month_names = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
 
-# Main tabs for data types
 tab1, tab2, tab3 = st.tabs(["Enrolment Analysis", "Demographic Updates", "Biometric Updates"])
 
-# ============================================================================
-# HELPER FUNCTIONS
-# ============================================================================
 def create_trend_analysis(data, data_type_name, value_col, state_col, district_col):
     """Create trend analysis section"""
     col1, col2 = st.columns([3, 1])
-    
     # National Trend
     monthly = data.groupby('month')[value_col].sum().sort_index()
     monthly.index = monthly.index.to_timestamp()
@@ -73,7 +59,6 @@ def create_trend_analysis(data, data_type_name, value_col, state_col, district_c
         xaxis_title="Month", yaxis_title=data_type_name,
         hovermode="x unified", height=400
     )
-    
     with col1:
         st.plotly_chart(fig_trend, use_container_width=True)
     
@@ -106,11 +91,8 @@ def create_trend_analysis(data, data_type_name, value_col, state_col, district_c
     
     # Seasonality
     st.subheader("Seasonality Patterns")
-    
-    # Monthly seasonality
     monthly_avg = data.groupby('month_num')[value_col].mean()
     peak_month = month_names[monthly_avg.idxmax() - 1]
-    
     fig_season = px.bar(
         x=[month_names[m-1] for m in monthly_avg.index],
         y=monthly_avg.values,
@@ -118,16 +100,12 @@ def create_trend_analysis(data, data_type_name, value_col, state_col, district_c
         labels={'x': 'Month', 'y': f'Avg {data_type_name}'}
     )
     st.plotly_chart(fig_season, use_container_width=True)
-    
     st.info(f"**Peak Enrolment Month:** {peak_month} (Average: {monthly_avg.max():,.0f})")
-    
     # Geographic Trends
     st.subheader("Geographic Trends")
-    
     # Get geographic data
     state_total = data.groupby(state_col)[value_col].sum().sort_values(ascending=False)
     district_total = data.groupby(district_col)[value_col].sum().sort_values(ascending=False)
-    
     # Metrics row
     col_m1, col_m2, col_m3, col_m4 = st.columns(4)
     col_m1.metric("Total States", len(state_total))
@@ -160,25 +138,20 @@ def create_trend_analysis(data, data_type_name, value_col, state_col, district_c
         st.plotly_chart(fig_district, use_container_width=True)
     
     return monthly, mom_growth
-
 def create_univariate_analysis(data, col_name, var_name):
     """Create univariate analysis section"""
-    st.subheader("Statistical Univariate Analysis")
-    
+    st.subheader("Statistical Univariate Analysis")   
     # Prepare data
     data_values = data[col_name].dropna()
     data_df = pd.DataFrame({col_name: data_values.values})
-    
     # Perform analysis
     stats_result = univariate_analysis(data_df, col_name)
-    
     # Metrics
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("Mean", f"{stats_result['mean']:,.0f}")
     col2.metric("Median", f"{stats_result['median']:,.0f}")
     col3.metric("Std Dev", f"{stats_result['std']:,.0f}")
     col4.metric("CV", f"{stats_result['coefficient_of_variation']:.2f}%")
-    
     col5, col6, col7, col8 = st.columns(4)
     col5.metric("Min", f"{stats_result['min']:,.0f}")
     col6.metric("Max", f"{stats_result['max']:,.0f}")
@@ -234,73 +207,9 @@ def create_univariate_analysis(data, col_name, var_name):
     )
     st.plotly_chart(fig_qq, use_container_width=True)
 
-def create_distribution_analysis(data, value_col, state_col, data_type):
-    """Create distribution and inequality analysis"""
-    st.subheader("Distribution & Inequality Analysis")
-    
-    state_totals = data.groupby(state_col)[value_col].sum().sort_values(ascending=False)
-    
-    # Gini and Concentration
-    gini = calculate_gini_coefficient(state_totals.values)
-    conc_ratio = calculate_concentration_ratio(state_totals.values, top_n=5)
-    
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Gini Coefficient", f"{gini:.4f}")
-    col2.metric("Top 5 Concentration", f"{conc_ratio*100:.2f}%")
-    
-    inequality_text = "High" if gini > 0.5 else "Moderate" if gini > 0.3 else "Low"
-    col3.metric("Inequality Level", inequality_text)
-    
-    st.info(f"Gini: {inequality_text.lower()} inequality in geographic distribution")
-    
-    # Lorenz Curve
-    sorted_values = np.sort(state_totals.values)
-    cumulative_share = np.cumsum(sorted_values) / np.sum(sorted_values)
-    cumulative_pop = np.arange(1, len(sorted_values) + 1) / len(sorted_values)
-    
-    fig_lorenz = go.Figure()
-    fig_lorenz.add_trace(go.Scatter(
-        x=cumulative_pop, y=cumulative_share,
-        mode='lines', name='Lorenz Curve', fill='tonexty'
-    ))
-    fig_lorenz.add_trace(go.Scatter(
-        x=[0, 1], y=[0, 1],
-        mode='lines', name='Perfect Equality',
-        line=dict(dash='dash')
-    ))
-    fig_lorenz.update_layout(
-        title="Lorenz Curve: Geographic Distribution",
-        xaxis_title="Cumulative Share of States",
-        yaxis_title="Cumulative Share of Value",
-        height=400
-    )
-    st.plotly_chart(fig_lorenz, use_container_width=True)
-    
-    # Top states
-    col_top1, col_top2 = st.columns([2, 1])
-    
-    with col_top1:
-        fig_top = px.bar(
-            x=state_totals.head(10).index,
-            y=state_totals.head(10).values,
-            title=f"Top 10 States",
-            labels={'x': 'State', 'y': data_type}
-        )
-        fig_top.update_xaxes(tickangle=45)
-        st.plotly_chart(fig_top, use_container_width=True)
-    
-    with col_top2:
-        st.metric("Total States", len(state_totals))
-        top5_pct = (state_totals.head(5).sum() / state_totals.sum()) * 100
-        st.metric("Top 5 Share", f"{top5_pct:.1f}%")
-
-# ============================================================================
-# ENROLMENT ANALYSIS TAB
-# ============================================================================
 with tab1:
     st.header("Enrolment Analysis")
     
-    # Trend Analysis
     st.markdown("### Trend")
     monthly_enrol, mom_growth_enrol = create_trend_analysis(
         df, "Total Enrolments", "total_enrolments", "state", "district"
@@ -374,13 +283,9 @@ with tab1:
             )
             st.plotly_chart(fig_scatter, use_container_width=True)
 
-# ============================================================================
-# DEMOGRAPHIC UPDATES TAB
-# ============================================================================
 with tab2:
     st.header("Demographic Updates Analysis")
     
-    # Trend Analysis
     st.markdown("### Trend")
     monthly_demo, mom_growth_demo = create_trend_analysis(
         df_demo, "Demographic Updates", "total_updates", "state", "district"
@@ -388,7 +293,6 @@ with tab2:
     
     st.divider()
     
-    # Advanced Analytics
     analysis_option = st.radio(
         "Analysis Type",
         ["Univariate Analysis", "Bivariate Correlation"],
@@ -449,13 +353,9 @@ with tab2:
             )
             st.plotly_chart(fig_scatter, use_container_width=True)
 
-# ============================================================================
-# BIOMETRIC UPDATES TAB
-# ============================================================================
 with tab3:
     st.header("Biometric Updates Analysis")
     
-    # Trend Analysis
     st.markdown("### Trend")
     monthly_bio, mom_growth_bio = create_trend_analysis(
         df_bio, "Biometric Updates", "total_updates", "state", "district"
@@ -463,7 +363,6 @@ with tab3:
     
     st.divider()
     
-    # Advanced Analytics
     analysis_option = st.radio(
         "Analysis Type",
         ["Univariate Analysis", "Bivariate Correlation"],
@@ -524,5 +423,3 @@ with tab3:
             )
             st.plotly_chart(fig_scatter, use_container_width=True)
 
-st.divider()
-st.caption("**Comprehensive Analysis Module** | Trends, statistics, and distribution insights combined")

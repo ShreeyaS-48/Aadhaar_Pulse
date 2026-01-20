@@ -1,8 +1,3 @@
-"""
-Time Series Forecasting Utilities for Aadhaar Data
-Provides predictive modeling capabilities using various time series methods
-"""
-
 import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression
@@ -10,16 +5,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 import warnings
 warnings.filterwarnings('ignore')
 
-try:
-    from statsmodels.tsa.arima.model import ARIMA
-    from statsmodels.tsa.holtwinters import ExponentialSmoothing
-    STATSMODELS_AVAILABLE = True
-except ImportError:
-    STATSMODELS_AVAILABLE = False
-
-
-def simple_linear_forecast(series, periods=3):
-    """
+"""
     Simple linear regression-based forecasting
     
     Args:
@@ -28,7 +14,9 @@ def simple_linear_forecast(series, periods=3):
     
     Returns:
         dict: Forecast values and confidence intervals
-    """
+"""
+
+def simple_linear_forecast(series, periods=3):
     if len(series) < 3:
         return {'error': 'Insufficient data for forecasting'}
     
@@ -57,9 +45,7 @@ def simple_linear_forecast(series, periods=3):
         'r_squared': model.score(X, y)
     }
 
-
-def moving_average_forecast(series, window=3, periods=3):
-    """
+"""
     Moving average-based forecasting
     
     Args:
@@ -69,7 +55,9 @@ def moving_average_forecast(series, window=3, periods=3):
     
     Returns:
         dict: Forecast values
-    """
+"""
+
+def moving_average_forecast(series, window=3, periods=3):
     if len(series) < window:
         return {'error': 'Insufficient data for forecasting'}
     
@@ -84,9 +72,7 @@ def moving_average_forecast(series, window=3, periods=3):
         'model_type': f'Moving Average (window={window})'
     }
 
-
-def exponential_smoothing_forecast(series, periods=3, alpha=0.3):
-    """
+"""
     Exponential smoothing forecasting
     
     Args:
@@ -96,7 +82,9 @@ def exponential_smoothing_forecast(series, periods=3, alpha=0.3):
     
     Returns:
         dict: Forecast values
-    """
+"""
+
+def exponential_smoothing_forecast(series, periods=3, alpha=0.3):
     if len(series) < 3:
         return {'error': 'Insufficient data for forecasting'}
     
@@ -118,45 +106,7 @@ def exponential_smoothing_forecast(series, periods=3, alpha=0.3):
         'forecast': forecast,
         'model_type': f'Exponential Smoothing (alpha={alpha})'
     }
-
-
-def arima_forecast(series, periods=3, order=(1, 1, 1)):
-    """
-    ARIMA forecasting (if statsmodels is available)
-    
-    Args:
-        series: Time series data
-        periods: Number of periods to forecast
-        order: ARIMA order (p, d, q)
-    
-    Returns:
-        dict: Forecast values
-    """
-    if not STATSMODELS_AVAILABLE:
-        return {'error': 'statsmodels not available'}
-    
-    if len(series) < 5:
-        return {'error': 'Insufficient data for ARIMA'}
-    
-    try:
-        model = ARIMA(series, order=order)
-        fitted_model = model.fit()
-        forecast = fitted_model.forecast(steps=periods)
-        conf_int = fitted_model.get_forecast(steps=periods).conf_int()
-        
-        return {
-            'forecast': forecast.values,
-            'lower_bound': conf_int.iloc[:, 0].values,
-            'upper_bound': conf_int.iloc[:, 1].values,
-            'model_type': f'ARIMA{order}',
-            'aic': fitted_model.aic
-        }
-    except Exception as e:
-        return {'error': f'ARIMA fitting failed: {str(e)}'}
-
-
-def ensemble_forecast(series, periods=3):
-    """
+"""
     Ensemble forecasting using multiple methods
     
     Args:
@@ -165,25 +115,22 @@ def ensemble_forecast(series, periods=3):
     
     Returns:
         dict: Ensemble forecast and individual model forecasts
-    """
+"""
+
+def ensemble_forecast(series, periods=3):
     forecasts = {}
-    
     # Try different methods
     linear = simple_linear_forecast(series, periods)
     if 'forecast' in linear:
         forecasts['linear'] = linear['forecast']
-    
     ma = moving_average_forecast(series, window=3, periods=periods)
     if 'forecast' in ma:
         forecasts['moving_average'] = ma['forecast']
-    
     es = exponential_smoothing_forecast(series, periods=periods)
     if 'forecast' in es:
         forecasts['exponential_smoothing'] = es['forecast']
-    
     if not forecasts:
         return {'error': 'No forecasting methods succeeded'}
-    
     # Ensemble: simple average
     forecast_array = np.array(list(forecasts.values()))
     ensemble_forecast = np.mean(forecast_array, axis=0)
@@ -195,9 +142,7 @@ def ensemble_forecast(series, periods=3):
         'methods_used': list(forecasts.keys())
     }
 
-
-def evaluate_forecast_accuracy(actual, predicted):
-    """
+"""
     Evaluate forecast accuracy metrics
     
     Args:
@@ -206,15 +151,14 @@ def evaluate_forecast_accuracy(actual, predicted):
     
     Returns:
         dict: Accuracy metrics
-    """
+"""
+def evaluate_forecast_accuracy(actual, predicted):
     actual = np.array(actual)
     predicted = np.array(predicted)
-    
     mae = mean_absolute_error(actual, predicted)
     mse = mean_squared_error(actual, predicted)
     rmse = np.sqrt(mse)
     mape = np.mean(np.abs((actual - predicted) / actual)) * 100 if np.any(actual != 0) else np.nan
-    
     return {
         'MAE': mae,
         'MSE': mse,

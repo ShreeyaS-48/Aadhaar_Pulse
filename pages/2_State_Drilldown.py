@@ -5,7 +5,6 @@ from utils.data_loader import load_aadhaar_data
 
 st.set_page_config(page_title="State Drilldown", layout="wide", initial_sidebar_state="expanded")
 
-
 def alt_dark_chart(chart: alt.Chart) -> alt.Chart:
     return (
         chart

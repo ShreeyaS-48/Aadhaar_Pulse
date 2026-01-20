@@ -1,8 +1,3 @@
-"""
-Aadhaar Enrolment & Update Intelligence System
-Comprehensive analytics platform for Aadhaar data analysis
-"""
-
 import streamlit as st
 
 st.set_page_config(
@@ -11,10 +6,8 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for enhanced professional styling
 st.markdown("""
 <style>
-    /* Main Header */
     .main-header {
         font-size: 3.5rem;
         font-weight: 800;
@@ -24,7 +17,6 @@ st.markdown("""
         letter-spacing: -1px;
     }
     
-    /* Tagline */
     .tagline {
         font-size: 1.3rem;
         color: #64748b;
@@ -33,7 +25,6 @@ st.markdown("""
         font-weight: 500;
     }
     
-    /* Hero Section */
     .hero-section {
         padding: 2rem;
         background: linear-gradient(135deg, #f0f4f8 0%, #ffffff 100%);
@@ -49,7 +40,6 @@ st.markdown("""
         margin-bottom: 0;
     }
     
-    /* Feature Cards */
     .feature-card {
         padding: 1.5rem;
         border-radius: 10px;
@@ -85,7 +75,6 @@ st.markdown("""
         line-height: 1.6;
     }
     
-    /* Section Header */
     .section-header {
         font-size: 1.8rem;
         font-weight: 700;
@@ -95,7 +84,6 @@ st.markdown("""
         padding-bottom: 0.5rem;
     }
     
-    /* Capability Box */
     .capability-box {
         background-color: #f9fafb;
         padding: 1.2rem;
@@ -115,7 +103,6 @@ st.markdown("""
         font-size: 0.95rem;
     }
     
-    /* CTA Section */
     .cta-section {
         background: linear-gradient(135deg, #1f4ed8 0%, #1e40af 100%);
         color: white;
@@ -136,7 +123,6 @@ st.markdown("""
         margin-bottom: 1rem;
     }
     
-    /* Stats Grid */
     .stats-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -165,7 +151,6 @@ st.markdown("""
         font-weight: 500;
     }
     
-    /* Footer */
     .footer-section {
         background-color: #f9fafb;
         padding: 1.5rem;
@@ -192,7 +177,6 @@ st.markdown("""
 st.markdown('<h1 class="main-header">Aadhaar Pulse</h1>', unsafe_allow_html=True)
 st.markdown('<p class="tagline">Data-Driven Insights for Enrolment, Updates & Planning</p>', unsafe_allow_html=True)
 
-# Hero Section
 st.markdown("""
 <div class="hero-section">
     <p class="hero-text">
@@ -205,7 +189,6 @@ st.markdown("""
 
 st.divider()
 
-# Platform Capabilities Section
 st.markdown('<h2 class="section-header">Platform Capabilities</h2>', unsafe_allow_html=True)
 
 col1, col2 = st.columns(2)
@@ -252,7 +235,6 @@ with col2:
     </div>
     """, unsafe_allow_html=True)
 
-# Call to Action Section
 st.markdown("""
 <div class="cta-section">
     <div class="cta-title">Get Started Today</div>
@@ -262,7 +244,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Footer
 st.markdown("""
 <div class="footer-section">
     <div class="footer-title">Data Sources</div>

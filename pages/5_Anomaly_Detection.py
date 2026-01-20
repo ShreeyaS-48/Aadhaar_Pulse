@@ -1,20 +1,12 @@
-"""
-Anomaly Detection & Risk Assessment Page
-Identifies outliers, anomalies, and risk patterns in Aadhaar data
-"""
-
 import streamlit as st
 import pandas as pd
-import numpy as np
 import plotly.express as px
-import plotly.graph_objects as go
 from utils.data_loader import load_aadhaar_data
 from utils.analytics import (
     detect_anomalies_isolation_forest
 )
 
 st.set_page_config(page_title="Anomaly Detection", layout="wide", initial_sidebar_state="expanded")
-
 st.title("Anomaly Detection and Risk Assessment")
 st.markdown("**Identify outliers, anomalies, and potential risk patterns in Aadhaar enrolment and update data**")
 st.divider()
@@ -30,9 +22,6 @@ analysis_level = st.sidebar.selectbox(
     ["State Level", "District Level", "Temporal (Daily)"]
 )
 
-# ====================================================================
-# ISOLATION FOREST ANOMALY DETECTION (ONLY)
-# ====================================================================
 st.header("Isolation Forest Anomaly Detection")
 if analysis_level == "State Level":
     state_data = df.groupby('state').agg({
@@ -41,8 +30,7 @@ if analysis_level == "State Level":
         'age_5_17': 'sum',
         'age_18_greater': 'sum'
     }).reset_index()
-    
-    # Use only enrolment-based metrics (no population-adjusted indicators)
+
     state_data['child_ratio'] = (
         state_data['age_0_5'] + state_data['age_5_17']
     ) / state_data['total_enrolments']
@@ -65,7 +53,7 @@ if analysis_level == "State Level":
             use_container_width=True
         )
 
-        # Visualization: use anomaly_df (contains is_anomaly)
+        # Visualization
         fig = px.scatter(
             anomaly_df,
             x='total_enrolments',
